@@ -124,7 +124,7 @@ export async function readAllUsers() {
   await connectDB();
   const results = await User.findAll({});
   if(!results) {
-    throw new Error(`Not found for id:${user_id}`);
+    throw new Error('Read all user failed');
   } else {
     return results.map(result => result.getSanitized());
   }
@@ -134,7 +134,7 @@ export async function passCheck(user, pass) {
    await connectDB();
    var result = await User.findOne( {where:{username:user} });
    if(!result) {
-     throw new Error(`Not found for id:${user_id}`);
+     throw new Error(`Not found for ${user}`);
    } else {
      let passOK = await verifypass(pass, result.password);
      log(`passcheck => ${pass}:${result.password}:${passOK}`);
